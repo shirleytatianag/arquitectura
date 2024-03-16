@@ -1,4 +1,5 @@
 import express from "express";
+import middleware from "../middlewares/index.middlewares.js";
 import routes from "../routes/index.routes.js";
 import pgService from "../services/pg.service.js";
 import { env } from "./default.js"
@@ -17,6 +18,7 @@ export default class Server{
 
     middlewares(){
         this.app.use(express.json());
+        this.app.use(middleware)
     }
 
     routes(){
