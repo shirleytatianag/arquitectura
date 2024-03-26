@@ -19,7 +19,6 @@ export const login = async (req, res) => {
     res.status(200).json({
         success: true,
         token: generateToken(authLoginResponse),
-        // user_id: authLoginResponse.user_id,
         msn: 'Logueado correctamente'
     })
     } catch (error) {
