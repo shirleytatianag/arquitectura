@@ -6,18 +6,20 @@ export const login = async (req, res) => {
 
     try {
         
-    let { username, password} = req.query;
+    let authLoginReq = req.body;
 
-    let data = await getUser(username, password);
-    console.log('si', data);
+    let authLoginResponse = await getUser(authLoginReq);
 
-    if(!data){
-        throw new Error ("Credenciales de accesos incorrectas!")
+    console.log(authLoginResponse);
+
+    if(!authLoginResponse){
+        throw new Error ("Credenciales de acceso incorrectas!")
     }
 
     res.status(200).json({
         success: true,
-        token: generateToken(data),
+        token: generateToken(authLoginResponse),
+        // user_id: authLoginResponse.user_id,
         msn: 'Logueado correctamente'
     })
     } catch (error) {

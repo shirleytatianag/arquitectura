@@ -2,7 +2,7 @@ import { checkSchema } from "express-validator";
 
 export const postProductValidator = checkSchema(
     {
-        nombre: {
+        product_name: {
             errorMessage : 'Nombre no valido',
             notEmpty : true,
             isLength: {
@@ -10,7 +10,14 @@ export const postProductValidator = checkSchema(
                 options: { min: 1, max: 100}
             }
         },
-        valor: {
+        product_detail: {
+            matches: {
+                options: /^[\w\sáéíóúÁÉÍÓÚüÜ]+$/u
+            },
+            errorMessage: 'No se permiten carácteres especiales'
+        }
+        ,
+        product_price: {
             matches: {
                 options: /^[0-9]+$/
             },

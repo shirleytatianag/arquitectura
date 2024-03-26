@@ -1,39 +1,42 @@
-import { getProductModel, getProductUniqueModel, postProductModel, putProductModel } from "../models/product.model.js"
+import { getProductModel, getProductById, createProductModel, putProductModel, deleteProductById } from "../models/product.model.js"
 
 
 export default class ProductController{
-    getProduct = async (req, res) =>{
+    getAllProducts = async (req, res) =>{
+      console.log('Get all products');
       let data = await getProductModel();
-       res.status(200).json({msg: "esto es un get", data: data})
+       res.status(200).json(data)
     }
 
     getProductUnique = async (req, res) =>{
+      console.log('Get product by Id');
       let {id} = req.params;
-      let data = await getProductUniqueModel(id);
-      res.status(200).json({msg: "esto es un get unico", data: data})
+      let data = await getProductById(id);
+      res.status(data.status).json(data.data)
     }
 
-      postProduct = async (req, res) => {
-        let {product_name, product_detail, product_price} = req.body;
-        let data = await postProductModel(product_name, product_detail, product_price)
-        res.status(200).json({msg: "esto es un post", data: data})
+    createProductModel = async (req, res) => {
+      console.log('Create a product');
+        let dataRequest = req.body;
+        let data = await createProductModel(dataRequest)
+        res.status(data.status).json(data.data)
     }
 
     putProduct = async (req, res) => {
-      let {id} = req.params
-      let {product_name, product_detail, product_price} = req.body;
-      let dataProduct = await getProductUniqueModel(id);
-      if(dataProduct){
-        let data = await putProductModel(product_name, product_detail, product_price, id)
-        res.status(200).json({msg: "esto es un post", data: data})
-      } else{
-        console.log('no encontré nada');
-        res.status(404).json({msg: "Pailas, eso no existe mi reina"})
-
-      }
-
+      console.log('Update product by Product Id');
+      let {idProduct} = req.params;
+      let dataRequest = req.body;
+      let data = await putProductModel(dataRequest, idProduct)
+      res.status(data.status).json(data.data);
   }
 
+
+   deleteProduct = async (req, res) => {
+    console.log('Delete product by Product Id');
+    let {idProduct} = req.params;
+    let data = await deleteProductById(idProduct)
+    res.status(data.status).json(data.data);
+}
 
 }
 
