@@ -9,7 +9,7 @@ export const validate = ( validation) => async (req, res, next) =>{
  
 
     const error = validationResult(req); 
-    console.log(error);
+    
     if( error.isEmpty()){
         return next();
     }

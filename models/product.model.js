@@ -46,7 +46,7 @@ export const createProductModel = async (dataRequest) => {
         )
         return {data: productResponse, status: 201}
     } catch (error) {
-        console.log(error);
+        
         return {data: 'Ups, ha habido un problema, reintenta más tarde', status: 500}
     }
 
