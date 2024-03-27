@@ -25,7 +25,7 @@ git clone https://github.com/shirleytatianag/arquitectura.git
 2. Instalación de las dependencias:
 
 ```bash
-cd tuproyecto
+cd <Nombre-proyecto>
 npm install
 ```
 
