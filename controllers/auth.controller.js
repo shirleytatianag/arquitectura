@@ -19,7 +19,7 @@ export const login = async (req, res) => {
     res.status(200).json({
         success: true,
         token: generateToken(authLoginResponse),
-        msn: 'Logueado correctamente'
+        msn: '¡Bienvenido de nuevo! Tu sesión se ha iniciado con éxito 😊'
     })
     } catch (error) {
         res.status(401).json({
