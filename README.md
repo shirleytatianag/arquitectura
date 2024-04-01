@@ -51,10 +51,8 @@ Asegúrate de tener el servidor corriendo localmente. Puedes enviar solicitudes 
 
 Recuerda incluir el token JWT en la cabecera de las solicitudes a las rutas protegidas.
 
-## Contribución
-
-Si quieres contribuir a este proyecto, ¡eres bienvenido! Siéntete libre de abrir un issue o enviar un pull request.
 
 ---
 
-¡Gracias por utilizar nuestro backend! Si tienes alguna pregunta o sugerencia, no dudes en ponerte en contacto con nosotros. ¡Esperamos que sea útil para tu aplicación! -Laura Sepúlveda y Shirley García-2024
+¡Gracias por utilizar nuestro backend! Si tienes alguna pregunta o sugerencia, no dudes en ponerte en contacto con nosotros. ¡Esperamos que sea útil para tu aplicación! 
+-`Laura Sepúlveda y Shirley García-2024`
