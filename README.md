@@ -35,7 +35,7 @@ npm install
     - Actualiza las variables de entorno del archivo `.env` con la información de tu base de datos PostgreSQL.
 
 
-5. Instala e Inicia el servidor:
+4. Instala e Inicia el servidor:
 
 ```bash
 npm i -g nodemon

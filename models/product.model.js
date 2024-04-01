@@ -93,7 +93,7 @@ export const deleteProductById =  async(product_id) =>{
         )
 
         if(!existsProduct){
-            return {data: 'El producto que intenta actualizar no existe :(', status: 404}
+            return {data: 'El producto que intenta eliminar no existe :(', status: 404}
         }
 
         await pg.connection.query(`DELETE FROM PRODUCT WHERE PRODUCT_ID= $1`,[product_id]);
