@@ -11,17 +11,29 @@ export const postProductValidator = checkSchema(
             }
         },
         product_detail: {
-            matches: {
-                options: /^[\w\sáéíóúÁÉÍÓÚüÜ]+$/u
+            custom: {
+                options: (value, { req }) => {
+                    const regexNoSpaces = /^(?!.*\s)[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ][a-zA-ZáéíóúÁÉÍÓÚüÜñÑ\s]*[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ](?=\S*$)/;
+                    const regexNoSpecialChars = /^[^!@#$%^&*(),.?":{}|<>]+$/;
+                    
+                    if (!value.match(regexNoSpaces)) {
+                        throw new Error('No se permiten espacios vacíos antes ni después de la cadena de texto');
+                    }
+
+                    if (!value.match(regexNoSpecialChars)) {
+                        throw new Error('No se permiten caracteres especiales');
+                    }
+
+                    return true;
+                }
             },
-            errorMessage: 'No se permiten carácteres especiales'
-        }
-        ,
+            errorMessage: 'Detalle de producto no válido'
+        },
         product_price: {
             matches: {
                 options: /^[0-9]+$/
             },
-            errorMessage: 'Valor no valido'
+            errorMessage: 'Solo se permiten números'
         }
     }, ["body"]
 )

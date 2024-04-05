@@ -11,6 +11,9 @@ export default class ProductController{
     getProductUnique = async (req, res) =>{
       console.log('Get product by Id');
       let {id} = req.params;
+      if (!id.match(/^\d+$/)) {
+        return res.status(400).json("ID inválido");
+    }
       let data = await getProductById(id);
       res.status(data.status).json(data.data)
     }
@@ -25,6 +28,9 @@ export default class ProductController{
     putProduct = async (req, res) => {
       console.log('Update product by Product Id');
       let {idProduct} = req.params;
+      if (!idProduct.match(/^\d+$/)) {
+        return res.status(400).json("ID inválido");
+      }
       let dataRequest = req.body;
       let data = await putProductModel(dataRequest, idProduct)
       res.status(data.status).json(data.data);
@@ -34,6 +40,9 @@ export default class ProductController{
    deleteProduct = async (req, res) => {
     console.log('Delete product by Product Id');
     let {idProduct} = req.params;
+    if (!idProduct.match(/^\d+$/)) {
+      return res.status(400).json("ID inválido");
+    }
     let data = await deleteProductById(idProduct)
     res.status(data.status).json(data.data);
 }
