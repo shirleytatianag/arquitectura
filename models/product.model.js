@@ -42,7 +42,7 @@ export const createProductModel = async (dataRequest) => {
         const productResponse = await pg.connection.one(
             `INSERT INTO PRODUCT (PRODUCT_NAME, PRODUCT_DETAIL, PRODUCT_PRICE)
             VALUES ($1, $2, $3) RETURNING *`,
-            [dataRequest.product_name, dataRequest.product_detail, dataRequest.product_price]
+            [dataRequest.product_name.trim(), dataRequest.product_detail.trim(), dataRequest.product_price]
         )
         return {data: productResponse, status: 201}
     } catch (error) {
@@ -75,7 +75,7 @@ export const putProductModel = async (dataRequest, product_id) => {
             PRODUCT_DETAIL = $2, 
             PRODUCT_PRICE = $3 
             WHERE PRODUCT_ID = $4`,
-            [dataRequest.product_name, dataRequest.product_detail, dataRequest.product_price, product_id])
+            [dataRequest.product_name.trim(), dataRequest.product_detail.trim(), dataRequest.product_price, product_id])
         
         return {data: 'Producto actualizado con éxito', status: 200}
         
