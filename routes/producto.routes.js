@@ -3,7 +3,7 @@ import ProductController from "../controllers/product.controller.js";
 import { validate } from "../middlewares/validator.middleware.js";
 import { postProductValidator } from "../validators/product.validators.js";
 
-const product = new ProductController 
+const product = new ProductController;
 const routesProduct = Router();
  
 routesProduct.get("/", product.getAllProducts)

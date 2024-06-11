@@ -40,9 +40,9 @@ export const createProductModel = async (dataRequest) => {
         }
 
         const productResponse = await pg.connection.one(
-            `INSERT INTO PRODUCT (PRODUCT_NAME, PRODUCT_DETAIL, PRODUCT_PRICE)
-            VALUES ($1, $2, $3) RETURNING *`,
-            [dataRequest.product_name.trim(), dataRequest.product_detail.trim(), dataRequest.product_price]
+            `INSERT INTO PRODUCT (PRODUCT_NAME, PRODUCT_DETAIL, PRODUCT_PRICE, PRODUCT_IMAGE, CATEGORY_ID)
+            VALUES ($1, $2, $3, $4, $5) RETURNING *`,
+            [dataRequest.product_name.trim(), dataRequest.product_detail.trim(), dataRequest.product_price, dataRequest.product_image, dataRequest.cateogory_id]
         )
         return {data: productResponse, status: 201}
     } catch (error) {
@@ -73,9 +73,11 @@ export const putProductModel = async (dataRequest, product_id) => {
             `UPDATE PRODUCT 
             SET PRODUCT_NAME = $1, 
             PRODUCT_DETAIL = $2, 
-            PRODUCT_PRICE = $3 
-            WHERE PRODUCT_ID = $4`,
-            [dataRequest.product_name.trim(), dataRequest.product_detail.trim(), dataRequest.product_price, product_id])
+            PRODUCT_PRICE = $3,
+            PRODUCT_IMAGE = $4,
+            CATEGORY_ID = $5
+            WHERE PRODUCT_ID = $6`,
+            [dataRequest.product_name.trim(), dataRequest.product_detail.trim(), dataRequest.product_price,dataRequest.product_image, dataRequest.cateogory_id, product_id])
         
         return {data: 'Producto actualizado con éxito', status: 200}
         

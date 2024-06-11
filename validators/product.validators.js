@@ -30,6 +30,22 @@ export const postProductValidator = checkSchema(
                 options: /^[0-9]+$/
             },
             errorMessage: 'Solo se permiten números'
-        }
+        },
+        product_image: {
+            errorMessage : 'Debes agregar una imagen como mínimo',
+            notEmpty : true,
+            isLength: {
+                errorMessage: 'El tamaño debe ser mínimo 1',
+                options: { min: 1, max: 100}
+            }
+        },
+        category_id: {
+            errorMessage : 'Debes agregar una categoria valida bb',
+            notEmpty : true,
+            matches: {
+                options: /^[0-9]+$/,
+                errorMessage: 'Solo se permiten números'
+            },
+        },
     }, ["body"]
 )
