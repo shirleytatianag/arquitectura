@@ -4,7 +4,7 @@ export const getProductModel = async () => {
     try {
         const pg = new pgService();
         return await pg.connection.query(
-            `SELECT * FROM PRODUCT`
+            `SELECT p.product_id ,p.product_name, p.product_detail, p.product_price, p.product_image, c.category_id, c.category_name FROM PRODUCT p INNER JOIN CATEGORY c on p.category_id= c.category_id`
         )
     } catch (error) {
         return 'Ha habido un error,' + error;
@@ -42,7 +42,7 @@ export const createProductModel = async (dataRequest) => {
         const productResponse = await pg.connection.one(
             `INSERT INTO PRODUCT (PRODUCT_NAME, PRODUCT_DETAIL, PRODUCT_PRICE, PRODUCT_IMAGE, CATEGORY_ID)
             VALUES ($1, $2, $3, $4, $5) RETURNING *`,
-            [dataRequest.product_name.trim(), dataRequest.product_detail.trim(), dataRequest.product_price, dataRequest.product_image, dataRequest.cateogory_id]
+            [dataRequest.product_name.trim(), dataRequest.product_detail.trim(), dataRequest.product_price, dataRequest.product_image, dataRequest.category_id]
         )
         return {data: productResponse, status: 201}
     } catch (error) {
