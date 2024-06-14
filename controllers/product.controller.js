@@ -5,6 +5,7 @@ export default class ProductController{
     getAllProducts = async (req, res) =>{
       console.log('Get all products');
       let data = await getProductModel();
+      console.log(data);
        res.status(200).json(data)
     }
 
@@ -33,7 +34,7 @@ export default class ProductController{
       }
       let dataRequest = req.body;
       let data = await putProductModel(dataRequest, idProduct)
-      res.status(data.status).json(data.data);
+      res.status(data.status).json(data);
   }
 
 

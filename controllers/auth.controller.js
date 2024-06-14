@@ -10,6 +10,7 @@ export const login = async (req, res) => {
 
     let authLoginResponse = await getUser(authLoginReq);
 
+
     if(!authLoginResponse){
         throw new Error ("Credenciales de acceso incorrectas!")
     }

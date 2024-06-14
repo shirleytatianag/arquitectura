@@ -13,7 +13,7 @@ export const postProductValidator = checkSchema(
         product_detail: {
             custom: {
                 options: (value, { req }) => {
-                    const regexNoSpecialChars = /^[^!@#$%^&*(),.?":{}|<>]+$/;
+                    const regexNoSpecialChars = /^[^!@#$%^&*()?":{}|<>]+$/;
                     
 
                     if (!value.match(regexNoSpecialChars)) {
@@ -27,20 +27,16 @@ export const postProductValidator = checkSchema(
         },
         product_price: {
             matches: {
-                options: /^[0-9]+$/
+                options: /^\d+(\.\d+)?$/
             },
             errorMessage: 'Solo se permiten números'
         },
         product_image: {
             errorMessage : 'Debes agregar una imagen como mínimo',
             notEmpty : true,
-            isLength: {
-                errorMessage: 'El tamaño debe ser mínimo 1',
-                options: { min: 1, max: 100}
-            }
         },
         category_id: {
-            errorMessage : 'Debes agregar una categoria valida bb',
+            errorMessage : 'Debes agregar una categoria valida',
             notEmpty : true,
             matches: {
                 options: /^[0-9]+$/,

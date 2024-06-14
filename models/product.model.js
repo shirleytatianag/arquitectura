@@ -57,13 +57,14 @@ export const putProductModel = async (dataRequest, product_id) => {
     try {
         const pg = new pgService()
 
-        const productExists = await pg.connection.oneOrNone(`SELECT * FROM PRODUCT WHERE PRODUCT_ID = $1`, [product_id]);
+        const productExists = await pg.connection.oneOrNone(`SELECT product_id FROM PRODUCT WHERE PRODUCT_ID = $1`, [product_id]);
         
         if (!productExists){
             return {data: 'El producto que intentas actualizar no existe :(', status: 404}
         }
 
-        const productNameExists = await pg.connection.query(`SELECT * FROM PRODUCT WHERE PRODUCT_NAME = $1`, [dataRequest.product_name]);
+        const productNameExists = await pg.connection.query(`SELECT product_id FROM PRODUCT WHERE PRODUCT_NAME = $1`, [dataRequest.product_name]);
+
 
         if (productNameExists[0] && productNameExists[0].product_id != product_id){
             return {data: 'Ya existe un producto con ese nombre :(', status: 400}
@@ -77,7 +78,7 @@ export const putProductModel = async (dataRequest, product_id) => {
             PRODUCT_IMAGE = $4,
             CATEGORY_ID = $5
             WHERE PRODUCT_ID = $6`,
-            [dataRequest.product_name.trim(), dataRequest.product_detail.trim(), dataRequest.product_price,dataRequest.product_image, dataRequest.cateogory_id, product_id])
+            [dataRequest.product_name, dataRequest.product_detail, dataRequest.product_price,dataRequest.product_image, dataRequest.category_id, product_id])
         
         return {data: 'Producto actualizado con éxito', status: 200}
         
