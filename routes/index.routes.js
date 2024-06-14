@@ -1,4 +1,4 @@
-import { Router } from "express";
+import {Router} from "express";
 import authRouter from "./auth.routes.js";
 import routesProduct from "./producto.routes.js";
 import routesCategory from "./category.routes.js";
@@ -10,6 +10,6 @@ routes.use('/auth', authRouter)
 
 routes.use('/producto', routesProduct)
 
-routes.use('/category', routesCategory )
+routes.use('/category', routesCategory)
 
 export default routes;

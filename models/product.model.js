@@ -11,19 +11,19 @@ export const getProductModel = async () => {
     }
 }
 
-export async function getProductById(product_id){
+export async function getProductById(product_id) {
     try {
         const pg = new pgService();
         const product = await pg.connection.oneOrNone(
-            `SELECT * FROM PRODUCT WHERE PRODUCT_ID = $1`, 
+            `SELECT * FROM PRODUCT WHERE PRODUCT_ID = $1`,
             [product_id]
         )
-        
-        if(!product) {
-            return { data: "Producto no encontrado", status: 404}
+
+        if (!product) {
+            return {data: "Producto no encontrado", status: 404}
         }
 
-        return { data: product, status: 200 }
+        return {data: product, status: 200}
     } catch (error) {
         return {data: 'Ups!, ha ocurrido un problema', status: 500}
     }
@@ -32,10 +32,10 @@ export async function getProductById(product_id){
 export const createProductModel = async (dataRequest) => {
     try {
         const pg = new pgService()
-        
+
         const producExists = await pg.connection.oneOrNone(`SELECT * FROM PRODUCT WHERE PRODUCT_NAME = $1`, [dataRequest.product_name])
 
-        if(producExists){
+        if (producExists) {
             return {data: 'No es posible agregar este producto porque ya existe', status: 400}
         }
 
@@ -46,7 +46,7 @@ export const createProductModel = async (dataRequest) => {
         )
         return {data: productResponse, status: 201}
     } catch (error) {
-        
+
         return {data: 'Ups, ha habido un problema, reintenta más tarde', status: 500}
     }
 
@@ -58,15 +58,15 @@ export const putProductModel = async (dataRequest, product_id) => {
         const pg = new pgService()
 
         const productExists = await pg.connection.oneOrNone(`SELECT product_id FROM PRODUCT WHERE PRODUCT_ID = $1`, [product_id]);
-        
-        if (!productExists){
+
+        if (!productExists) {
             return {data: 'El producto que intentas actualizar no existe :(', status: 404}
         }
 
         const productNameExists = await pg.connection.query(`SELECT product_id FROM PRODUCT WHERE PRODUCT_NAME = $1`, [dataRequest.product_name]);
 
 
-        if (productNameExists[0] && productNameExists[0].product_id != product_id){
+        if (productNameExists[0] && productNameExists[0].product_id != product_id) {
             return {data: 'Ya existe un producto con ese nombre :(', status: 400}
         }
 
@@ -78,29 +78,29 @@ export const putProductModel = async (dataRequest, product_id) => {
             PRODUCT_IMAGE = $4,
             CATEGORY_ID = $5
             WHERE PRODUCT_ID = $6`,
-            [dataRequest.product_name, dataRequest.product_detail, dataRequest.product_price,dataRequest.product_image, dataRequest.category_id, product_id])
-        
+            [dataRequest.product_name, dataRequest.product_detail, dataRequest.product_price, dataRequest.product_image, dataRequest.category_id, product_id])
+
         return {data: 'Producto actualizado con éxito', status: 200}
-        
+
     } catch (error) {
         return {data: 'Ups, ha habido un problema, reintenta más tarde', status: 500}
     }
 }
 
 
-export const deleteProductById =  async(product_id) =>{
+export const deleteProductById = async (product_id) => {
     try {
         const pg = new pgService();
-        const existsProduct =  await pg.connection.oneOrNone(
+        const existsProduct = await pg.connection.oneOrNone(
             `SELECT * FROM PRODUCT WHERE PRODUCT_ID = $1`, [product_id]
         )
 
-        if(!existsProduct){
+        if (!existsProduct) {
             return {data: 'El producto que intenta eliminar no existe :(', status: 404}
         }
 
-        await pg.connection.query(`DELETE FROM PRODUCT WHERE PRODUCT_ID= $1`,[product_id]);
-        return {data:"Producto eliminado exitosamente", status:200};
+        await pg.connection.query(`DELETE FROM PRODUCT WHERE PRODUCT_ID= $1`, [product_id]);
+        return {data: "Producto eliminado exitosamente", status: 200};
 
 
     } catch (error) {

@@ -33,6 +33,7 @@ npm install
 
     - Crea una base de datos PostgreSQL.
     - Actualiza las variables de entorno del archivo `.env` con la información de tu base de datos PostgreSQL.
+    - Copia y pega los script de la carpeta  `scripts`, en donde manejes tu base de datos.
 
 
 4. Instala e Inicia el servidor:
