@@ -2,8 +2,8 @@ CREATE TABLE product (
     product_id SERIAL,
     product_name VARCHAR(50),
     product_detail VARCHAR(200),
-    product_price NUMERIC
-    product_image TEXT
+    product_price NUMERIC,
+    product_image TEXT,
     category_id INT,
     CONSTRAINT pk_product_id PRIMARY KEY (product_id),
     CONSTRAINT fk_category_id FOREIGN KEY (category_id) REFERENCES category(category_id)
